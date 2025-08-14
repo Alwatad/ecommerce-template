@@ -79,23 +79,59 @@ export const CarouselBlock = ({
               key={slide.id}
               className={cn("basis-full md:basis-[50%] lg:basis-[33.33%] 2xl:basis-[25%]")}
             >
-              {typeof slide.image !== "string" && slide.image.url && (
-                <>
-                  {slide.link &&
-                  (slide.link.url ||
-                    (typeof slide.link.reference?.value !== "string" && slide.link.reference?.value.slug)) ? (
-                    <Link
-                      // @ts-expect-error - reference.value is not a string! TypeScript doesn't know that, it was checked above
-                      href={slide.link.url ?? `/${slide.link.reference?.value.slug}`}
-                      target={slide.link.newTab ? "_blank" : "_self"}
-                    >
+              {typeof slide.image !== "string" &&
+                slide.image.url &&
+                (type === "default" ? (
+                  (() => {
+                    const tile = (
+                      <div className="group block overflow-hidden rounded-2xl border border-zinc-100 dark:border-zinc-800">
+                        <div className="relative aspect-square bg-zinc-50 dark:bg-zinc-900">
+                          <Media
+                            resource={slide.image}
+                            fill
+                            imgClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5 ring-inset dark:ring-white/5" />
+                        </div>
+                      </div>
+                    );
+                    return (
+                      <>
+                        {slide.link &&
+                        (slide.link.url ||
+                          (typeof slide.link.reference?.value !== "string" &&
+                            slide.link.reference?.value.slug)) ? (
+                          <Link
+                            // @ts-expect-error - reference.value is not a string! TypeScript doesn't know that, it was checked above
+                            href={slide.link.url ?? `/${slide.link.reference?.value.slug}`}
+                            target={slide.link.newTab ? "_blank" : "_self"}
+                          >
+                            {tile}
+                          </Link>
+                        ) : (
+                          tile
+                        )}
+                      </>
+                    );
+                  })()
+                ) : (
+                  <>
+                    {slide.link &&
+                    (slide.link.url ||
+                      (typeof slide.link.reference?.value !== "string" &&
+                        slide.link.reference?.value.slug)) ? (
+                      <Link
+                        // @ts-expect-error - reference.value is not a string! TypeScript doesn't know that, it was checked above
+                        href={slide.link.url ?? `/${slide.link.reference?.value.slug}`}
+                        target={slide.link.newTab ? "_blank" : "_self"}
+                      >
+                        <Media resource={slide.image} />
+                      </Link>
+                    ) : (
                       <Media resource={slide.image} />
-                    </Link>
-                  ) : (
-                    <Media resource={slide.image} />
-                  )}
-                </>
-              )}
+                    )}
+                  </>
+                ))}
             </CarouselItem>
           ))}
         </CarouselContent>
