@@ -93,6 +93,11 @@ export const CarouselBlock = ({
                           />
                           <div className="pointer-events-none absolute inset-0 ring-1 ring-black/5 ring-inset dark:ring-white/5" />
                         </div>
+                        {slide.link?.label && (
+                          <div className="flex items-center justify-between px-3 py-3 text-sm">
+                            <div className="truncate">{slide.link.label}</div>
+                          </div>
+                        )}
                       </div>
                     );
                     return (

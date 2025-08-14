@@ -69,14 +69,16 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <article className="pt-16 pb-24">
-      <PageClient />
-      {/* Allows redirects for valid pages too */}
-      {!page && slug !== "home" && <PayloadRedirects locale={locale} url={url} />}
+      <div className="container mx-auto max-w-7xl space-y-8 px-4 md:space-y-12 md:px-6 lg:px-8">
+        <PageClient />
+        {/* Allows redirects for valid pages too */}
+        {!page && slug !== "home" && <PayloadRedirects locale={locale} url={url} />}
 
-      {/* {draft && <LivePreviewListener />} */}
+        {/* {draft && <LivePreviewListener />} */}
 
-      <RenderHero {...hero} />
-      <RenderBlocks blocks={layout} />
+        <RenderHero {...hero} />
+        <RenderBlocks blocks={layout} />
+      </div>
     </article>
   );
 }

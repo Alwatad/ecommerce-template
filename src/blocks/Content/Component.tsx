@@ -52,7 +52,7 @@ export const ContentBlock = (props: ContentBlockProps) => {
           className="absolute top-1/2 left-1/2 -z-10 h-full w-screen -translate-x-1/2 -translate-y-1/2"
         />
       )}
-      <div className="grid grid-cols-4 gap-y-8 lg:grid-cols-12">
+      <div className="grid grid-cols-4 gap-4 md:gap-6 lg:grid-cols-12">
         {props.columns &&
           props.columns.length > 0 &&
           props.columns.map((col, index) => {
@@ -61,7 +61,7 @@ export const ContentBlock = (props: ContentBlockProps) => {
             return (
               <div
                 className={cn(
-                  `col-span-4 px-8`,
+                  `col-span-4`,
                   {
                     "md:col-span-2": size !== "full",
                   },
@@ -73,9 +73,14 @@ export const ContentBlock = (props: ContentBlockProps) => {
                 style={col.background ? { background: col.background } : {}}
                 key={index}
               >
-                {richText && <RichText data={richText} enableProse={enableProse ?? false} />}
-
-                {enableLink && <CMSLink {...link} />}
+                <div className="group overflow-hidden rounded-3xl border border-zinc-100 p-6 dark:border-zinc-800">
+                  {richText && <RichText data={richText} enableProse={enableProse ?? false} />}
+                  {enableLink && (
+                    <div className="mt-3">
+                      <CMSLink {...link} />
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
